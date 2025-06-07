@@ -1,14 +1,13 @@
-*{
-
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: sans-serif;
-
+/* =============== Global Reset =============== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
+/* =============== Body & Background =============== */
 body {
-
   background: linear-gradient(-45deg,
     #ffa184,
     #ff61f2,
@@ -17,31 +16,9 @@ body {
   );
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
-
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-body::before,
-body::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  width: 300px; height: 300px;
-  animation: float 12s ease-in-out infinite alternate;
-}
-
-body::before {
-  top: 10%; left: 5%;
-}
-body::after {
-  bottom: 10%; right: 5%;
-}
-
-@keyframes float {
-  to { transform: translate(30px, -30px); }
 }
 
 @keyframes gradientBG {
@@ -50,117 +27,132 @@ body::after {
   100% { background-position: 0% 50%; }
 }
 
-
-input{
-
-    display: none;
-
+/* floating circles */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  width: 300px;
+  height: 300px;
+  animation: float 12s ease-in-out infinite alternate;
 }
 
-.container{
+body::before { top: 10%; left: 5%; }
+body::after  { bottom: 10%; right: 5%; }
 
-    width: 100%;
+@keyframes float {
+  to { transform: translate(30px, -30px); }
+}
+
+/* =============== Layout Container =============== */
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+/* =============== Headline =============== */
+h1 {
+  font-weight: bold;
+  /* scales between 2rem and 4rem */
+  font-size: clamp(2rem, 8vw, 4rem);
+  position: relative;
+  margin: 2rem 0;
+  color: white;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke: 1px black;
+}
+
+h1::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  background-color: pink;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: underlineAnim 4s linear infinite;
+}
+
+@keyframes underlineAnim {
+  0%   { width: 100px; }
+  50%  { width: 200px; }
+  100% { width: 100px; }
+}
+
+/* =============== Navbar / Filter Bar =============== */
+.top-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: left;
+  width: 100%;
+  margin: 0 auto 1.25rem;
+  padding: 0.25rem;
+  height: 60px;
+  background: rgba(255,255,255,0.3);
+  border: 3px solid white;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px lightgray;
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+  .top-content h3 {
+    flex: 1 1 100%;
+    margin-bottom: 0.5rem;
     text-align: center;
-
+  }
 }
 
-h1{
-
-    font-weight: bold;
-    font-size: 70px;
-    position: relative;
-    margin: 40px 0;
-    color: white;
-    -webkit-text-fill-color: white;
-    -webkit-text-stroke: 1px black;
-
+/* "Photos" label */
+h3 {
+  flex: 0 0 auto;
+  height: 100%;
+  line-height: 60px;
+  padding: 0 2rem;
+  color: rgb(255, 30, 199);
+  font-weight: bold;
+  /* scales between 1.5rem and 2.5rem */
+  font-size: clamp(2.5rem, 4vw, 2.5rem);
 }
 
-h1::before{
-
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 3px;
-    background-color: pink;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: animate 4s linear infinite;
-
+/* Tab labels */
+label {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  margin: 0 1.25rem;
+  line-height: 60px;
+  /* scales between 0.875rem (14px) and 1.125rem (18px) */
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding-bottom: 5px;
 }
 
-@keyframes animate {
-
-    0% {
-        width: 100px;
-    }
-    50% {
-        width: 200px;
-    }
-    100% {
-        width: 100px;
-    }
-
-}
-
-.top-content{
-
-    background-color: rgb(243,243,243);
-    width: 90%;
-    margin: 0 auto 20px auto;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    box-shadow: 3px 3px 5px lightgray;
-    border: 3px solid white;
-    box-sizing: border-box;
-
-    position: sticky;
-    top: 20px;
-    z-index: 10;
-    background: rgba(255,255,255,0.3);
-    backdrop-filter: blur(8px);
-}
-
-h3{
-
-    height: 100%;
-    background-color: lightgray;
-    line-height: 60px;
-    padding: 0 50px;
-    color: rgb(255, 30, 199);
-    font-weight: bold;
-    font-size: 40px;
-
-}
-
-label{
-
-    display: inline-block;
-    height: 100%;
-    margin: 0 20px;
-    line-height: 60px;
-    font-size: 18px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    transition: color .5s;
-
-    position: relative;
-    padding-bottom: 5px;
-
+label:hover {
+  color: #000;
 }
 
 label::after {
   content: "";
   position: absolute;
-  height: 3px;
-  width: 0;
-  background: #e73c7e;
   bottom: 0;
   left: 50%;
-  transition: width .3s ease, left .3s ease;
+  width: 0;
+  height: 3px;
+  background: #e73c7e;
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
 label:hover::after,
@@ -169,148 +161,137 @@ label.active::after {
   left: 10%;
 }
 
-label:hover {
-
-    color:black;
-
+/* hide the native radio buttons */
+input[type="radio"] {
+  display: none;
 }
 
-.photo-gallery{
-
-    width: 90%;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-
+/* =============== Photo Gallery =============== */
+.photo-gallery {
+  display: grid;
+  /* auto-fit as many 250px columns as will fit */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.pic{
-
-    position: relative;
-    height: 230px;
-    border-radius: 10px;
-    box-shadow: 3px 3px 5px lightgray;
-    cursor: pointer;
-    transition: .5s;
-
+/* single-column fallback on tiny screens */
+@media (max-width: 360px) {
+  .photo-gallery {
+    grid-template-columns: 1fr;
+  }
 }
 
-.pic img{
-
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    transition: .5s;
-    border: 3px solid white;
-    box-sizing: border-box;
+/* gallery card */
+.pic {
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px lightgray;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* maintain a 16:9 aspect ratio */
+  aspect-ratio: 16 / 9;
 }
 
-.pic::before{
-
-    content: "I Love You 🤍";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
-    width: 100%;
-    margin-top: -100px;
-    opacity: 0;
-    transition: .25s;
-    transition-delay: .2s;
-    z-index: 1;
-
+.pic:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-.pic:after {
+/* the image itself */
+.pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid white;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
 
-    content: "";
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    border-radius: 10px;
-    height: 0;
-    background-color: rgba(0, 0, 0, .4);
-    transition: .3s;
+.pic img:hover {
+  transform: scale(1.03);
+}
 
+/* hover overlay & caption */
+.pic::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  transition: height 0.3s ease;
 }
 
 .pic:hover::after {
+  height: 100%;
+}
 
-    height: 100%;
-
+.pic::before {
+  content: "I Love You 🤍";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.25s ease 0.2s;
 }
 
 .pic:hover::before {
-
-    margin-top: 0;
-    opacity: 1;
-
+  opacity: 1;
 }
 
-#check1:checked ~ .container .photo-gallery .pic{
-
-    opacity: 1;
-    transform: scale(1);
-    position: relative;
-    transition: .5s;
-
+/* =============== Filter Logic =============== */
+/* All photos */
+#check1:checked ~ .container .photo-gallery .pic {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
-#check2:checked ~ .container .photo-gallery .family{
-
-    transform: scale(1);
-    opacity: 1;
-    position: relative;
+/* Her photos only */
+#check2:checked ~ .container .photo-gallery .family {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
 }
-
 #check2:checked ~ .container .photo-gallery .child,
-#check2:checked ~ .container .photo-gallery .place{
-
-    opacity: 0;
-    transform: scale(0);
-    position: absolute;
-    transition: 0s;
-
+#check2:checked ~ .container .photo-gallery .place {
+  opacity: 0;
+  transform: scale(0);
+  position: absolute;
+  transition: none;
 }
-
-#check3:checked ~ .container .photo-gallery .child{
-
-    transform: scale(1);
-    opacity: 1;
-    position: relative;
-
+/* His photos only */
+#check3:checked ~ .container .photo-gallery .child {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
 }
-
 #check3:checked ~ .container .photo-gallery .family,
-#check3:checked ~ .container .photo-gallery .place{
-
-    opacity: 0;
-    transform: scale(0);
-    position: absolute;
-    transition: 0s;
-
+#check3:checked ~ .container .photo-gallery .place {
+  opacity: 0;
+  transform: scale(0);
+  position: absolute;
+  transition: none;
 }
-
-#check4:checked ~ .container .photo-gallery .place{
-
-    transform: scale(1);
-    opacity: 1;
-    position: relative;
-
+/* Galveston (place) only */
+#check4:checked ~ .container .photo-gallery .place {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
 }
-
 #check4:checked ~ .container .photo-gallery .family,
-#check4:checked ~ .container .photo-gallery .child{
-
-    opacity: 0;
-    transform: scale(0);
-    position: absolute;
-    transition: 0s;
-
+#check4:checked ~ .container .photo-gallery .child {
+  opacity: 0;
+  transform: scale(0);
+  position: absolute;
+  transition: none;
 }
-
