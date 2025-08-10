@@ -172,12 +172,9 @@ input[type="radio"] {
 /* =============== Photo Gallery =============== */
 .photo-gallery {
   display: grid;
-  /* auto-fit as many 250px columns as will fit */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 1rem;
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 1rem;
+  grid-auto-flow: dense;   /* optional, helps pack */
 }
 
 /* single-column fallback on tiny screens */
@@ -236,7 +233,7 @@ input[type="radio"] {
 }
 
 .pic::before {
-  content: "I Love You 🤍";
+  content: " 🖤 ";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -273,41 +270,19 @@ input[type="radio"] {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 /* Her photos only */
-#check2:checked ~ .container .photo-gallery .family {
-  opacity: 1;
-  transform: scale(1);
-  position: relative;
-}
+#check2:checked ~ .container .photo-gallery .family { display: block; }
 #check2:checked ~ .container .photo-gallery .child,
-#check2:checked ~ .container .photo-gallery .place {
-  opacity: 0;
-  transform: scale(0);
-  position: absolute;
-  transition: none;
-}
+#check2:checked ~ .container .photo-gallery .place  { display: none; }
+
 /* His photos only */
-#check3:checked ~ .container .photo-gallery .child {
-  opacity: 1;
-  transform: scale(1);
-  position: relative;
-}
+#check3:checked ~ .container .photo-gallery .child  { display: block; }
 #check3:checked ~ .container .photo-gallery .family,
-#check3:checked ~ .container .photo-gallery .place {
-  opacity: 0;
-  transform: scale(0);
-  position: absolute;
-  transition: none;
-}
-/* Galveston (place) only */
-#check4:checked ~ .container .photo-gallery .place {
-  opacity: 1;
-  transform: scale(1);
-  position: relative;
-}
+#check3:checked ~ .container .photo-gallery .place  { display: none; }
+
+/* Galveston only */
+#check4:checked ~ .container .photo-gallery .place  { display: block; }
 #check4:checked ~ .container .photo-gallery .family,
-#check4:checked ~ .container .photo-gallery .child {
-  opacity: 0;
-  transform: scale(0);
-  position: absolute;
-  transition: none;
-}
+#check4:checked ~ .container .photo-gallery .child  { display: none; }
+
+/* Default (all) */
+#check1:checked ~ .container .photo-gallery .pic    { display: block; }
